@@ -1,5 +1,6 @@
 import './App.css';
 import Header from './Components/Header/Header';
+import FirstCarousel from './Components/FirstCarousel/FirstCarousel'
 
 
 function App() {
@@ -8,7 +9,8 @@ function App() {
 
   
 
-   <Header />
+   {/*<Header />*/}
+   <FirstCarousel />
 
 
 

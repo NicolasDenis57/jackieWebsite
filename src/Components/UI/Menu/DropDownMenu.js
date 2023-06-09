@@ -48,7 +48,7 @@ const DropDownMenu = () => {
   const handleMouseLeave = () => {
     timeoutRef.current = setTimeout(() => {
       setHoveredItem(null);
-    }, 1000000);
+    }, 1000);
   };
 
   return (
