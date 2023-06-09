@@ -1,0 +1,47 @@
+.container {
+      background-color: blue;
+}
+
+ul {
+      list-style-type: none;
+      display: flex;
+      align-items: center;
+      position: relative; /* Ajout de la position relative sur le conteneur */
+    }
+    
+    a {
+      text-decoration: none;
+      text-transform: uppercase;
+      font-weight: 700;
+      font-size: 0.8em;
+      display: block;
+      padding: 10px 16px;
+      letter-spacing: 2px;
+      color: white;
+    }
+    
+    a:visited {
+      color: white;
+    }
+    
+    li {
+      position: relative;
+    }
+    
+    .sub-menu {
+      position: absolute;
+      top: 100%;
+      background-color: blue;
+      display: flex;
+      flex-direction: column;
+      padding: 0px;
+      margin-top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      align-items: center;
+      width: max-content;
+    }
+
+    
+   
+   
