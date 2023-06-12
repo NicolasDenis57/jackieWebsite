@@ -1,4 +1,3 @@
-
 import Carousel from '../UI/Carousel/Carousel';
 
 const FirstCarousel = () => {

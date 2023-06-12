@@ -1,5 +1,4 @@
 import React, { useState, useRef } from 'react';
-import styles from './DropDownMenu.module.css';
 
 const DropDownMenu = () => {
   const [hoveredItem, setHoveredItem] = useState(null);
@@ -52,20 +51,25 @@ const DropDownMenu = () => {
   };
 
   return (
-    <div className={styles.container}>
-      <ul>
+    <div className="bg-blue-500">
+      <ul className="list-none flex items-center justify-center relative"> {/* Ajoutez la classe "justify-center" */}
         {menuItems.map((menuItem, index) => (
           <li
             key={index}
             onMouseEnter={() => handleMouseEnter(index)}
             onMouseLeave={handleMouseLeave}
+            className="relative"
           >
-            <a href='#'>{menuItem.text}</a>
+            <a href="#" className="text-white uppercase font-semibold text-sm block px-4 py-2">
+              {menuItem.text}
+            </a>
             {hoveredItem === index && menuItem.subMenuItems.length > 0 && (
-              <ul className={styles['sub-menu']}>
+              <ul className="absolute top-full bg-blue-500 flex flex-col px-0 mt-2 left-1/2 transform -translate-x-1/2 items-center">
                 {menuItem.subMenuItems.map((subMenuItem, subIndex) => (
                   <li key={subIndex}>
-                    <a href='#'>{subMenuItem.text}</a>
+                    <a href="#" className="text-white uppercase font-semibold text-sm block px-4 py-2">
+                      {subMenuItem.text}
+                    </a>
                   </li>
                 ))}
               </ul>

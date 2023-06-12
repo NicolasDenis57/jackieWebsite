@@ -3,22 +3,14 @@ import Header from './Components/Header/Header';
 import FirstCarousel from './Components/FirstCarousel/FirstCarousel'
 
 
+
 function App() {
   return (
-    <div className="App">
+    <div>
 
-  
-
-   {/*<Header />*/}
+   <Header />
    <FirstCarousel />
-
-
-
-     
-
-      
-
-
+  
     </div>
   );
 }
