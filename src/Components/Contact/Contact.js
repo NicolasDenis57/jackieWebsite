@@ -4,7 +4,7 @@ const Contact = () => {
 
   return (
       <div id="contact">
-    <img src="placeholders/contact.png" alt="contact" />
+            <img src="placeholders/contact.png" alt="contact" />
       </div>
   );
 };

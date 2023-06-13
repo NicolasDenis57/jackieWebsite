@@ -8,7 +8,7 @@ const SecondCarousel = () => {
   ];
 
   return (
-    <div>
+    <div id='secondCarousel'>
       <Carousel images={images} />
     </div>
   );

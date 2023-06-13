@@ -8,50 +8,42 @@ const DropDownMenu = () => {
   const menuItems = [
     {
       text: 'Accueil',
-      anchor: '/',
       subMenuItems: [],
-      
     },
     {
       text: 'A propos',
-      anchor:'#Section1',
       subMenuItems: [
-        { text: 'La petite histoire',
-          anchor:'#'
-        },
+        { text: 'La petite histoire' },
       ],
+      target: 'section1',
     },
     {
       text: 'Prestations',
-      anchor:'#Section2',
       subMenuItems: [
-        { text: 'Créations vitaminées', anchor:'#' },
-        { text: 'Identité visuelle', anchor:'#' },
-        { text: 'Illustrations sur mesure', anchor:'#' },
+        { text: 'Créations vitaminées' },
+        { text: 'Identité visuelle' },
+        { text: 'Illustrations sur mesure' },
       ],
+      target: 'section2',
     },
     {
       text: 'Realisations',
-      anchor:'#SeconCarousel',
       subMenuItems: [
-        { text: 'Portfolio',
-          anchor:'#' 
-        },
+        { text: 'Portfolio' },
       ],
+      target: 'secondCarousel',
     },
     {
       text: 'Ils en parlent',
-      anchor: '#ThirdCarousel',
       subMenuItems: [],
+      target: 'thirdCarousel',
     },
     {
       text: 'Contact',
-      anchor: '#Contact',
       subMenuItems: [],
+      target: 'contact',
     },
   ];
-
-  
 
   const handleMouseEnter = (index) => {
     clearTimeout(timeoutRef.current);
@@ -72,6 +64,21 @@ const DropDownMenu = () => {
     setHoveredSubItem(null);
   };
 
+  const handleButtonClick = (target) => {
+    let scrollTarget = 0; // Par défaut, monter vers le Header
+
+    if (target) {
+      const targetElement = document.getElementById(target);
+      if (targetElement) {
+        const targetElementPosition = targetElement.offsetTop;
+        scrollTarget = targetElementPosition;
+      }
+    }
+
+    window.scrollTo({ top: scrollTarget, behavior: 'smooth' });
+  };
+
+
   return (
     <div className="bg-blue-500 relative z-10">
       <ul className="list-none flex items-center justify-center relative">
@@ -82,7 +89,8 @@ const DropDownMenu = () => {
             onMouseLeave={handleMouseLeave}
             className="relative"
           >
-            <a href={menuItem.anchor} className="text-white uppercase font-semibold text-sm block px-4 py-2">
+            <a href="#" className="text-white uppercase font-semibold text-sm block px-4 py-2"
+            onClick={() => handleButtonClick(menuItem.target)}>
               {menuItem.text}
             </a>
             {hoveredItem === index && menuItem.subMenuItems.length > 0 && (
@@ -95,7 +103,7 @@ const DropDownMenu = () => {
                     className="w-max"
                   >
                     <a
-                      href={subMenuItem.anchor}
+                      href="#"
                       className={`text-white uppercase font-semibold text-sm block px-2 py-1 transition-colors ${
                         hoveredSubItem === subIndex ? 'bg-blue-400' : ''
                       }`}
