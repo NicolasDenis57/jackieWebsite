@@ -1,47 +1,66 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 const DropDownMenu = () => {
   const [hoveredItem, setHoveredItem] = useState(null);
   const [hoveredSubItem, setHoveredSubItem] = useState(null);
   const timeoutRef = useRef(null);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const menuItems = [
     {
       text: 'Accueil',
+      target: 'header', // Pointe vers la zone "header" de la page d'accueil
       subMenuItems: [],
     },
     {
       text: 'A propos',
+      target: 'section1', // Pointe vers la zone "section1" de la page d'accueil
       subMenuItems: [
-        { text: 'La petite histoire' },
+        {
+          text: 'La petite histoire',
+          href: '/la-petite-histoire',
+        },
       ],
-      target: 'section1',
     },
     {
       text: 'Prestations',
+      target: 'section2', // Pointe vers la zone "section2" de la page d'accueil
       subMenuItems: [
-        { text: 'Créations vitaminées' },
-        { text: 'Identité visuelle' },
-        { text: 'Illustrations sur mesure' },
+        {
+          text: 'Nature',
+          href: '/nature',
+        },
+        {
+          text: 'Illustrations pédagogiques',
+          href: '/illustrations-pedagogiques',
+        },
+        {
+          text: 'Jeunesse',
+          href: '/jeunesse',
+        },
       ],
-      target: 'section2',
     },
     {
       text: 'Realisations',
+      target: 'secondCarousel', // Pointe vers la zone "secondCarousel" de la page d'accueil
       subMenuItems: [
-        { text: 'Portfolio' },
+        {
+          text: 'Portfolio',
+          href: '/book',
+        },
       ],
-      target: 'secondCarousel',
     },
     {
       text: 'Ils en parlent',
+      target: 'thirdCarousel', // Pointe vers la zone "thirdCarousel" de la page d'accueil
       subMenuItems: [],
-      target: 'thirdCarousel',
     },
     {
       text: 'Contact',
+      target: 'contact', // Pointe vers la zone "contact" de la page d'accueil
       subMenuItems: [],
-      target: 'contact',
     },
   ];
 
@@ -75,9 +94,28 @@ const DropDownMenu = () => {
       }
     }
 
-    window.scrollTo({ top: scrollTarget, behavior: 'smooth' });
+    if (location.pathname === '/') {
+      navigate(`/#${target}`);
+    } else {
+      navigate(`/${target}`);
+    }
   };
 
+  useEffect(() => {
+    let scrollTarget = 0; // Par défaut, monter vers le Header
+
+    if (location.hash) {
+      const targetElement = document.getElementById(location.hash.substring(1));
+      if (targetElement) {
+        const targetElementPosition = targetElement.offsetTop;
+        scrollTarget = targetElementPosition;
+      }
+    }
+
+    setTimeout(() => {
+      window.scrollTo({ top: scrollTarget, behavior: 'smooth' });
+    }, 0);
+  }, [location.hash]);
 
   return (
     <div className="bg-blue-500 relative z-10">
@@ -89,10 +127,13 @@ const DropDownMenu = () => {
             onMouseLeave={handleMouseLeave}
             className="relative"
           >
-            <a href="#" className="text-white uppercase font-semibold text-sm block px-4 py-2"
-            onClick={() => handleButtonClick(menuItem.target)}>
+            <Link
+              to={`/#${menuItem.target}`}
+              className="text-white uppercase font-semibold text-sm block px-4 py-2"
+              onClick={() => handleButtonClick(menuItem.target)}
+            >
               {menuItem.text}
-            </a>
+            </Link>
             {hoveredItem === index && menuItem.subMenuItems.length > 0 && (
               <ul className="absolute bg-blue-500 flex flex-col px-4 py-2 mt-2 left-0 items-center z-20">
                 {menuItem.subMenuItems.map((subMenuItem, subIndex) => (
@@ -103,7 +144,7 @@ const DropDownMenu = () => {
                     className="w-max"
                   >
                     <a
-                      href="#"
+                      href={subMenuItem.href}
                       className={`text-white uppercase font-semibold text-sm block px-2 py-1 transition-colors ${
                         hoveredSubItem === subIndex ? 'bg-blue-400' : ''
                       }`}
